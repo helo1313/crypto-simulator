@@ -1,0 +1,28 @@
+.home {
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainContainer {
+  width: auto;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--color-grey-50);
+
+  box-shadow: var(--shadow-lg);
+
+  h1 {
+    padding: 1rem;
+  }
+
+  h3 {
+    color: var(--color-grey-400);
+  }
+}
