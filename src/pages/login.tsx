@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classes from "../styles/Pages/login.module.scss";
+import Input from "@/components/ui/input/Input";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,37 +12,23 @@ export default function Login() {
     <div className={classes.login}>
       <h2>Log in to your account</h2>
       <form className={classes.form}>
-        <div className={classes.inputContainer}>
-          <label htmlFor="email" className={classes.label}>
-            Email address
-          </label>
-          <input
-            value={email}
-            name="email"
-            placeholder="Enter your email here"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(event.target.value)
-            }
-            className={classes.input}
-          />
-          <label className={classes.errorLabel}>{emailError}</label>
-        </div>
+        <Input
+          name="email"
+          label="Email address"
+          placeholder="Enter your email here"
+          value={email}
+          setValue={setEmail}
+          error={emailError}
+        />
 
-        <div className={classes.inputContainer}>
-          <label htmlFor="password" className={classes.label}>
-            Password
-          </label>
-          <input
-            value={password}
-            name="password"
-            placeholder="Enter your password here"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(event.target.value)
-            }
-            className={classes.input}
-          />
-          <label className={classes.errorLabel}>{passwordError}</label>
-        </div>
+        <Input
+          name="password"
+          label=" Password"
+          placeholder="Enter your password here"
+          value={password}
+          setValue={setPassword}
+          error={passwordError}
+        />
 
         <button className={classes.button} type="submit">
           Login
