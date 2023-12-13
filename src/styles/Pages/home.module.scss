@@ -14,15 +14,19 @@
   justify-content: center;
   align-items: center;
 
-  background-color: var(--color-grey-50);
-
-  box-shadow: var(--shadow-lg);
-
   h1 {
     padding: 1rem;
   }
 
   h3 {
     color: var(--color-grey-400);
+  }
+}
+
+.buttonContainer {
+  padding: 1rem;
+
+  button {
+    margin: 0 1rem;
   }
 }
