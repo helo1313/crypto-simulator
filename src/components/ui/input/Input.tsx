@@ -3,6 +3,7 @@ import classes from "./input.module.scss";
 
 interface InputProps {
   name: string;
+  type: "text" | "password";
   label: string;
   placeholder: string;
   value: string;
@@ -18,6 +19,7 @@ const Input: React.FC<InputProps> = (props) => {
       </label>
       <input
         value={props.value}
+        type={props.type}
         name={props.name}
         placeholder={props.placeholder}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>

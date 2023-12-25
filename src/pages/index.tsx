@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import {
   ABOUT_ROUTE,
   LOGIN_ROUTE,
-  SIGN_IN_ROUTE,
+  SIGN_UP_ROUTE,
 } from "@/utils/constants/routes";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,12 +23,12 @@ export default function Home() {
         <div className={classes.buttonContainer}>
           <Button
             onClick={() => {
-              router.push(SIGN_IN_ROUTE);
+              router.push(SIGN_UP_ROUTE);
             }}
             type="primary"
           >
             {" "}
-            Sign In
+            Sign Up
           </Button>
           <Button
             onClick={() => {

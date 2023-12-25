@@ -1,6 +1,11 @@
 import { useState } from "react";
-import classes from "../styles/Pages/signin.module.scss";
+
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/config";
+
 import Input from "@/components/ui/input/Input";
+
+import classes from "../styles/Pages/signup.module.scss";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -10,12 +15,28 @@ export default function SignIn() {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
+  const [createUserWithEmailAndPassword] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  const handleSignUp = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+    try {
+      event.preventDefault();
+
+      const res = await createUserWithEmailAndPassword(email, password);
+      console.log("odpowiedz: " + res);
+    } catch (error) {
+      console.log("UWAGA ERROR");
+      console.log(error);
+    }
+  };
+
   return (
-    <div className={classes.signIn}>
+    <div className={classes.signUp}>
       <h2>Create new account</h2>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={handleSignUp}>
         <Input
           name="email"
+          type="text"
           label="Email address"
           placeholder="Enter your email here"
           value={email}
@@ -25,6 +46,7 @@ export default function SignIn() {
 
         <Input
           name="password"
+          type="password"
           label="Password"
           placeholder="Enter your password here"
           value={password}
@@ -34,6 +56,7 @@ export default function SignIn() {
 
         <Input
           name="confirm password"
+          type="password"
           label="Confirm password"
           placeholder="Enter your password here again"
           value={confirmPassword}
