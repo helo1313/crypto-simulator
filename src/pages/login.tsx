@@ -1,16 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "../styles/Pages/login.module.scss";
 import Input from "@/components/ui/input/Input";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useAuthState,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const [user] = useAuthState(auth);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showLoginError, setShowLoginError] = useState(false);
 
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user]);
 
   const handleLogin = async (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,9 +33,13 @@ export default function Login() {
     try {
       const res = await signInWithEmailAndPassword(email, password);
 
-      console.log("Odpowiedz" + res);
+      if (res === undefined) {
+        setEmail("");
+        setPassword("");
+        setShowLoginError(true);
+      }
     } catch (error) {
-      console.log("ERROR" + error);
+      console.log(error);
     }
   };
 
@@ -37,7 +56,6 @@ export default function Login() {
           setValue={setEmail}
           error={emailError}
         />
-
         <Input
           name="password"
           type="password"
@@ -47,6 +65,11 @@ export default function Login() {
           setValue={setPassword}
           error={passwordError}
         />
+        {showLoginError ? (
+          <p className={classes.errorLabel}>
+            Login failed, incorrect user or password
+          </p>
+        ) : undefined}
 
         <button className={classes.button} type="submit">
           Login

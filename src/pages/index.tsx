@@ -9,11 +9,21 @@ import {
   LOGIN_ROUTE,
   SIGN_UP_ROUTE,
 } from "@/utils/constants/routes";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/config";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [user] = useAuthState(auth);
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user]);
 
   return (
     <div className={classes.home}>

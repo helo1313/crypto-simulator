@@ -14,6 +14,7 @@ export default function SignIn() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [signUpError, setSignUpError] = useState("");
 
   const [createUserWithEmailAndPassword] =
     useCreateUserWithEmailAndPassword(auth);
@@ -22,10 +23,22 @@ export default function SignIn() {
     try {
       event.preventDefault();
 
+      if (password !== confirmPassword) {
+        setPassword("");
+        setConfirmPassword("");
+        setSignUpError("Passwords must be the same");
+        return;
+      }
+
       const res = await createUserWithEmailAndPassword(email, password);
-      console.log("odpowiedz: " + res);
+
+      if (res === undefined) {
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setSignUpError("Fail to sign up");
+      }
     } catch (error) {
-      console.log("UWAGA ERROR");
       console.log(error);
     }
   };
@@ -63,6 +76,10 @@ export default function SignIn() {
           setValue={setConfirmPassword}
           error={confirmPasswordError}
         />
+
+        {signUpError.length !== 0 ? (
+          <p className={classes.errorLabel}>{signUpError}</p>
+        ) : undefined}
 
         <button className={classes.button} type="submit">
           Create account

@@ -5,9 +5,14 @@ import Button from "../ui/button/Button";
 import { useRouter } from "next/router";
 import { LOGIN_ROUTE } from "@/utils/constants/routes";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "@/firebase/config";
+
 import classes from "./header.module.scss";
+import { signOut } from "firebase/auth";
 
 const Header: React.FC = () => {
+  const [user] = useAuthState(auth);
   const router = useRouter();
 
   return (
@@ -24,15 +29,28 @@ const Header: React.FC = () => {
               <Link href="/about">Current rates</Link>
             </li>
             <li>
-              <Button
-                onClick={() => {
-                  router.push(LOGIN_ROUTE);
-                }}
-                type="primary"
-              >
-                {" "}
-                Login
-              </Button>
+              {user ? (
+                <Button
+                  onClick={() => {
+                    signOut(auth);
+                    router.push("/");
+                  }}
+                  type="primary"
+                >
+                  {" "}
+                  Sign out
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    router.push(LOGIN_ROUTE);
+                  }}
+                  type="primary"
+                >
+                  {" "}
+                  Login
+                </Button>
+              )}
             </li>
           </ul>
         </nav>
