@@ -5,9 +5,19 @@ const getCoinsData = async () => {
     return fetch(`https://api.coingecko.com/api/v3/coins/${coin}`);
   });
 
-  const response = await Promise.all(promises);
+  const responses = await Promise.all(promises);
 
-  console.log(response);
+  const filteredResponses = responses.filter((response) => {
+    return response.ok;
+  });
+
+  const jsonPromises = filteredResponses.map((response) => {
+    return response.json();
+  });
+
+  let data = await Promise.all(jsonPromises);
+
+  return data;
 };
 
 export default getCoinsData;

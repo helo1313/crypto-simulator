@@ -3,7 +3,11 @@ import Logo from "../logo/Logo";
 
 import Button from "../ui/button/Button";
 import { useRouter } from "next/router";
-import { LOGIN_ROUTE } from "@/utils/constants/routes";
+import {
+  ABOUT_ROUTE,
+  CURRENTRATES_ROUTE,
+  LOGIN_ROUTE,
+} from "@/utils/constants/routes";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/config";
@@ -23,10 +27,10 @@ const Header: React.FC = () => {
         <nav className={classes.navigation}>
           <ul>
             <li>
-              <Link href="/about">About site</Link>
+              <Link href={ABOUT_ROUTE}>About site</Link>
             </li>
             <li>
-              <Link href="/about">Current rates</Link>
+              <Link href={CURRENTRATES_ROUTE}>Current rates</Link>
             </li>
             <li>
               {user ? (
