@@ -1,7 +1,17 @@
 .currentRates {
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding-top: 100px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.header {
+  max-width: 1600px;
+}
+
+.possitive {
+  color: var(--color-green-700);
+}
+
+.negative {
+  color: var(--color-red-700);
 }
