@@ -25,15 +25,15 @@ export default function CurrentRates() {
               <img
                 className={classes.coinImage}
                 src={coin.image.small}
-                alt={`${coin.name} logo`}
+                alt={`${coin.localization.en} logo`}
               />
-              <p className={classes.coinName}>{coin.name}</p>
+              <p className={classes.coinName}>{coin.localization.en}</p>
               <p className={classes.coinPrice}>
                 {`${coin.market_data.current_price.usd}$`}
               </p>
               <p
                 className={`${classes.coinPriceChange} ${
-                  coinPriceChange ? classes.possitive : classes.negative
+                  coinPriceChange >= 0 ? classes.possitive : classes.negative
                 }`}
               >
                 {coinPriceChange >= 0 ? (

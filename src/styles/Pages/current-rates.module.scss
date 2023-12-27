@@ -8,6 +8,33 @@
   max-width: 1600px;
 }
 
+.coinDataRow {
+  display: grid;
+  grid-template-columns: auto 1fr 80px 80px;
+  height: 80px;
+  border-bottom: 1px solid var(--color-grey-400);
+  align-items: center;
+}
+
+.coinImage {
+  margin-left: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+.coinName {
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.coinPrice {
+  font-size: 1.5rem;
+}
+
+.coinPriceContainer {
+  justify-self: flex-end;
+}
+
 .possitive {
   color: var(--color-green-700);
 }
